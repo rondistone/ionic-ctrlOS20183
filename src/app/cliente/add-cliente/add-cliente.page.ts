@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../cliente';
-import { compileNgModule } from '@angular/core/src/render3/jit/module';
+import {ClienteService} from '../cliente.service';
 
 @Component({
   selector: 'app-add-cliente',
@@ -11,7 +11,7 @@ export class AddClientePage implements OnInit {
 
   private cliente: Cliente;
 
-  constructor() { }
+  constructor(private clienteService:ClienteService) { }
 
   ngOnInit() {
     this.cliente = new Cliente;
@@ -19,6 +19,15 @@ export class AddClientePage implements OnInit {
 
   onSubmit(form){
     console.log(form);
+    this.clienteService.save(this.cliente)
+    .then(
+      res=>{
+        console.log("cadastrado");
+      },
+      err=>{
+        console.log("erro ao cadastrar!" + err);
+      }
+    );
   }
 
 }
