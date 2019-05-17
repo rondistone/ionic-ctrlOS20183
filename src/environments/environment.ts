@@ -12,8 +12,8 @@ export const environment = {
     storageBucket: "projeto-ionic-78ace.appspot.com",
     messagingSenderId: "29637189572",
     appId: "1:29637189572:web:26c0752d8bff5218"
-  }
-};
+   }
+  };
 
 /*
  * For easier debugging in development mode, you can import the following file
