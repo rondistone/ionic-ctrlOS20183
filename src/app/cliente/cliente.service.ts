@@ -10,7 +10,7 @@ export class ClienteService {
   constructor(private db: AngularFireDatabase) { }
 
   getAll(){
-    return this.db.list("cliente").valueChanges();
+    return this.db.list("clientes").valueChanges();
   }
 
   save(cliente:Cliente){

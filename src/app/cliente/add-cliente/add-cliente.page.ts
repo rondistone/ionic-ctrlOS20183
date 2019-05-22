@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../cliente';
 import {ClienteService} from '../cliente.service';
 import { AlertController } from '@ionic/angular';
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-add-cliente',
@@ -13,7 +14,8 @@ export class AddClientePage implements OnInit {
   private cliente: Cliente;
 
   constructor(private clienteService:ClienteService,
-              public alertController: AlertController ) { }
+              public alertController: AlertController,
+              private router:Router ) { }
 
   ngOnInit() {
     this.cliente = new Cliente;
@@ -24,7 +26,10 @@ export class AddClientePage implements OnInit {
     this.clienteService.save(this.cliente)
     .then(
       res=>{
-        this.presentAlert("Aviso", this.cliente.nome + "cadastrado");
+        this.presentAlert("Aviso", this.cliente.nome + ".cadastrado");
+        form.reset();
+        this.cliente = new Cliente;
+        this.router.navigate(['/tabs/tab2']);
       },
       err=>{
         this.presentAlert("deu ruim","erro ao cadastrar!" + err);
