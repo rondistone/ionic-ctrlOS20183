@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../cliente';
 import {ClienteService} from '../cliente.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-cliente',
@@ -11,7 +12,8 @@ export class AddClientePage implements OnInit {
 
   private cliente: Cliente;
 
-  constructor(private clienteService:ClienteService) { }
+  constructor(private clienteService:ClienteService,
+              public alertController: AlertController ) { }
 
   ngOnInit() {
     this.cliente = new Cliente;
@@ -22,12 +24,21 @@ export class AddClientePage implements OnInit {
     this.clienteService.save(this.cliente)
     .then(
       res=>{
-        console.log("cadastrado");
+        this.presentAlert("Aviso", this.cliente.nome + "cadastrado");
       },
       err=>{
-        console.log("erro ao cadastrar!" + err);
+        this.presentAlert("deu ruim","erro ao cadastrar!" + err);
       }
     );
   }
+  async presentAlert(titulo:string,texto:string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      //subHeader: 'Subtitle',
+      message: texto,
+      buttons: ['OK']
+    });
 
+    await alert.present();
+  }
 }
