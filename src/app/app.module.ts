@@ -4,23 +4,24 @@ import { RouteReuseStrategy } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 
-//ionic
+//Ionic
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-//component
+//Component
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-//firebase
+//Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule,  AngularFireModule.initializeApp(environment.firebaseConfig), AngularFireDatabaseModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, AngularFireModule.initializeApp(environment.firebaseConfig), AngularFireDatabaseModule, AngularFireAuthModule],
   providers: [
     StatusBar,
     SplashScreen,
@@ -28,4 +29,4 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

@@ -30,7 +30,16 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../tab3/tab3.module#Tab3PageModule'
+            loadChildren: '../servico/list-servico/list-servico.module#ListServicoPageModule'
+          }
+        ]
+      },
+      {
+        path: 'addServico',
+        children: [
+          {
+            path: '',
+            loadChildren: '../servico/add-servico/add-servico.module#AddServicoPageModule'
           }
         ]
       },
@@ -40,6 +49,33 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: '../cliente/add-cliente/add-cliente.module#AddClientePageModule'
+          }
+        ]
+      },
+      {
+        path: 'addCliente/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: '../cliente/add-cliente/add-cliente.module#AddClientePageModule'
+          }
+        ]
+      },
+      {
+        path: 'addServico/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: '../servico/add-servico/add-servico.module#AddServicoPageModule'
+          }
+        ]
+      },
+      {
+        path: 'login',
+        children: [
+          {
+            path: '',
+            loadChildren: '../cliente/login/login.module#LoginPageModule'
           }
         ]
       },

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Cliente } from '../cliente';
-import {ClienteService} from '../cliente.service';
 import { AlertController } from '@ionic/angular';
-import {Router} from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { Cliente } from '../cliente';
+import { ClienteService } from '../cliente.service';
 
 @Component({
   selector: 'app-add-cliente',
@@ -12,31 +13,75 @@ import {Router} from '@angular/router'
 export class AddClientePage implements OnInit {
 
   private cliente: Cliente;
+  private id = null;
 
-  constructor(private clienteService:ClienteService,
-              public alertController: AlertController,
-              private router:Router ) { }
+  constructor(
+    private clienteService: ClienteService,
+    public alertController: AlertController,
+    private router: Router,
+    private activeRouter: ActivatedRoute
+  ) {
+  }
 
   ngOnInit() {
     this.cliente = new Cliente;
+    this.id = this.activeRouter.snapshot.paramMap.get("id");
+    if (this.id != null) {
+      this.edit(this.id);
+    } else {
+      this.id = null;
+    }
   }
 
-  onSubmit(form){
-    console.log(form);
-    this.clienteService.save(this.cliente)
-    .then(
-      res=>{
-        this.presentAlert("Aviso", this.cliente.nome + ".cadastrado");
-        form.reset();
-        this.cliente = new Cliente;
-        this.router.navigate(['/tabs/tab2']);
-      },
-      err=>{
-        this.presentAlert("deu ruim","erro ao cadastrar!" + err);
-      }
-    );
+
+  onSubmit(form) {
+    if (this.id == null) {
+      this.clienteService.save(this.cliente)
+        .then(
+          res => {
+            this.presentAlert("Aviso", this.cliente.nome + ". salvo!");
+            form.reset();
+            this.cliente = new Cliente;
+            this.router.navigate(['/tabs/tab2']);
+          },
+          err => {
+            this.presentAlert("Erro!!!", "Ops!! Deu erro ao salvar!" + err);
+          }
+        )
+    } else {
+      this.clienteService.update(this.id, this.cliente)
+        .then(
+          res => {
+            this.id = null;
+            this.presentAlert("Aviso", this.cliente.nome + ". Foi atualizado!");
+            form.reset();
+            this.cliente = new Cliente;
+            this.router.navigate(['/tabs/tab2']);
+          },
+          err => {
+            this.presentAlert("Erro!!!", "Ops!! Deu erro na atualização!" + err);
+          }
+        );
+    }
   }
-  async presentAlert(titulo:string,texto:string) {
+
+
+  edit(key) {
+    this.clienteService.get(key)
+      .subscribe(
+        res => {
+          this.cliente = res;
+          //console.log(res);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+  }
+
+
+  //Alertas ----------------------------------------------
+  async presentAlert(titulo: string, texto: string) {
     const alert = await this.alertController.create({
       header: titulo,
       //subHeader: 'Subtitle',
@@ -46,4 +91,5 @@ export class AddClientePage implements OnInit {
 
     await alert.present();
   }
+
 }

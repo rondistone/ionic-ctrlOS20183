@@ -1,32 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { ClienteService } from '../cliente.service';
+import { ServicoService } from '../servico.service';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-list-cliente',
-  templateUrl: './list-cliente.page.html',
-  styleUrls: ['./list-cliente.page.scss'],
+  selector: 'app-list-servico',
+  templateUrl: './list-servico.page.html',
+  styleUrls: ['./list-servico.page.scss'],
 })
-export class ListClientePage implements OnInit {
+export class ListServicoPage implements OnInit {
 
-  private clientes$: Observable<any[]>;
+  private servicos$: Observable<any[]>;
 
   constructor(
-    private clienteService: ClienteService,
+    private servicoService: ServicoService,
     private alertController: AlertController,
     private router:Router
   ) { }
 
   ngOnInit() {
-    this.clientes$ = this.clienteService.getAll();
+    this.servicos$ = this.servicoService.getAll();
   }
 
   doRefresh(event) {
     console.log('Begin async operation');
 
-    this.clientes$ = this.clienteService.getAll();
+    this.servicos$ = this.servicoService.getAll();
 
     setTimeout(() => {
       console.log('Async operation has ended');
@@ -41,7 +41,7 @@ export class ListClientePage implements OnInit {
     // async presentAlertConfirm(key) {
     const alert = await this.alertController.create({
       header: 'Confirme!',
-      message: 'Deseja apagar o registro?',
+      message: 'Deseja apagar o serviço?',
       buttons: [
         {
           text: 'Não',
@@ -53,7 +53,7 @@ export class ListClientePage implements OnInit {
         }, {
           text: 'Sim',
           handler: () => {
-            this.clienteService.remove(key);
+            this.servicoService.remove(key);
           }
         }
       ]
@@ -63,7 +63,7 @@ export class ListClientePage implements OnInit {
   }
 
   edit(key){
-    this.router.navigate(['/tabs/addCliente', key]);
+    this.router.navigate(['/tabs/addServico', key]);
   }
 
 }
