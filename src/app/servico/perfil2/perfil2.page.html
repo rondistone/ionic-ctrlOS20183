@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>perfil do Serviço</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-list lines="none">
+
+  <ion-item>
+    <img [src]="servico.foto" alt="" *ngIf="servico.foto != null">
+    <img src="/assets/perfils.jpg" alt="" *ngIf="servico.foto==null">
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Descrição</ion-label>
+    <ion-text>{{ servico.descricao }}</ion-text>
+  </ion-item>
+
+  <ion-item>
+      <ion-label>Valor</ion-label>
+      <ion-text>{{ servico.valor }}</ion-text>
+    </ion-item>
+
+    <ion-item>
+        <ion-label>Ativo</ion-label>
+        <ion-text>{{ servico.ativo }}</ion-text>
+      </ion-item>
+
+</ion-list>
+</ion-content>

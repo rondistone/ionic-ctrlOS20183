@@ -89,6 +89,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'perfil2/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: '../servico/perfil2/perfil2.module#Perfil2PageModule'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

@@ -3,5 +3,6 @@ export class Servico {
     descricao:string;
     valor:number;
     tipo:string;
+    foto:string;
     ativo:boolean = true;
 }
