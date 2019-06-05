@@ -80,6 +80,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'perfil/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: '../cliente/perfil/perfil.module#PerfilPageModule'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
