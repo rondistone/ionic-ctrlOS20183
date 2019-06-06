@@ -13,7 +13,7 @@ export class LoginPage implements OnInit {
   private email: string = null;
   private pws: string = null;
 
-  constructor(public afAuth: AngularFireAuth
+  constructor(private afAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
@@ -39,5 +39,11 @@ Login(){
     }
   )
 
+    }
+    loginGoogle() {
+      this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    }
+    logout() {
+      this.afAuth.auth.signOut();
     }
 }

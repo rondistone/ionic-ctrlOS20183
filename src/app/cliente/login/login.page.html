@@ -32,6 +32,10 @@
   </form>
 </ion-content>
 
-<ion-content>
-  <ion-button expand="block" fill="outline">Entre com sua corta do Google</ion-button>
+<ion-content padding>
+
+  <ion-button expand="block" fill="outline" color="medium" (click)="loginGoogle()">Entre com sua conta do Google</ion-button>
+
+  <ion-button expand="block" fill="outline" color="medium" (click)="logout()" href="/tabs">Sair da sua conta Google</ion-button>
+  
 </ion-content>

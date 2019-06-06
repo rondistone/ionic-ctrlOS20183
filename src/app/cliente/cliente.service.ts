@@ -3,13 +3,16 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
 
 import { Cliente } from './cliente';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase,
+              private afAuth: AngularFireAuth
+  ) { }
 
   getAll() {
     return this.db.list('clientes').snapshotChanges()
@@ -42,4 +45,7 @@ export class ClienteService {
     return this.db.object<Cliente>("clientes/" + key).valueChanges();
   }
 
+  saveAuth(cliente: Cliente){
+    this.afAuth.auth.createUserWithEmailAndPassword(cliente.email, cliente.pws);
+  }
 }
